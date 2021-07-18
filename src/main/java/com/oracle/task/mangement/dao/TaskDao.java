@@ -10,23 +10,23 @@ import java.util.List;
 public interface TaskDao {
 
     @SqlUpdate("CREATE TABLE IF NOT EXISTS Task (" +
-            " Task_Id INT NOT NULL AUTO_INCREMENT," +
-            " Task_Ref VARCHAR(255) NOT NULL, " +
-            " Task_Description VARCHAR(255) NOT NULL, " +
-            " Task_Completion_By_Date DATETIME NOT NULL, " +
-            " Task_Is_Done Boolean NOT NULL, " +
-            " primary key(Task_Id))")
+            " id INT NOT NULL AUTO_INCREMENT," +
+            " ref VARCHAR(255) NOT NULL, " +
+            " description VARCHAR(255) NOT NULL, " +
+            " completeByDate VARCHAR(12) NOT NULL, " +
+            " isDone Boolean NOT NULL, " +
+            " primary key(id))")
     void createTaskTable();
 
-    @SqlUpdate("INSERT INTO Task (Task_Ref,Task_Description,Task_Completion_By_Date, Task_Is_Done) " +
-            "VALUES(:ref, :description, :completionByDate, false)")
+    @SqlUpdate("INSERT INTO Task (ref, description, completeByDate, isDone) " +
+            "VALUES(:ref, :description, :completeByDate, false)")
     @GetGeneratedKeys
     int addTask(@BindBean Task task);
 
     @SqlQuery("SELECT * FROM Task")
     List<Task> getAll();
 
-    @SqlUpdate("Update Task Set Task_Is_Done = true WHERE id = :id")
+    @SqlUpdate("Update Task Set isDone = true WHERE id = :id")
     int completeTask(@Bind("id") int id);
 
 }

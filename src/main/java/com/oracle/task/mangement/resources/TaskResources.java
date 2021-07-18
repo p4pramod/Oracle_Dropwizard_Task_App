@@ -1,7 +1,9 @@
 package com.oracle.task.mangement.resources;
 
-import com.oracle.task.mangement.dao.Task;
 import com.oracle.task.mangement.dao.TaskDao;
+import com.oracle.task.mangement.usecase.task.UserFetchesAllCompletedTask;
+import com.oracle.task.mangement.usecase.task.UserMarksTaskCompleted;
+import com.oracle.task.mangement.usecase.task.UserSavesNewTask;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -22,21 +24,19 @@ public class TaskResources {
 
     @GET
     @Path("/getAll")
-    public List<Task> getAllEmployees() {
-        return this.taskDao.getAll();
+    public List<TaskDto> getAllEmployees() {
+        return new UserFetchesAllCompletedTask(this.taskDao).execute(1L);
     }
 
     @POST
-    public Task addEmployee(@Valid Task task) {
-        int employeeID = this.taskDao.addTask(task);
-        task.setId(employeeID);
-        return task;
+    public TaskDto addTask(@Valid TaskDto taskDto) {
+        UserSavesNewTask userSavesNewTask = new UserSavesNewTask(taskDao);
+        return userSavesNewTask.execute(taskDto);
     }
 
-    @DELETE
+    @PUT
     @Path("/mark-done/{id}")
     public int markDone(@PathParam("id") int id) {
-        this.taskDao.completeTask(id);
-        return id;
+        return new UserMarksTaskCompleted(this.taskDao).execute(id);
     }
 }

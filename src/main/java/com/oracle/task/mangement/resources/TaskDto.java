@@ -1,5 +1,6 @@
-package com.oracle.task.mangement.dao;
+package com.oracle.task.mangement.resources;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,12 +9,13 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Task {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class TaskDto {
 
-    @NotNull
     @JsonProperty
     private int id;
 
@@ -25,14 +27,11 @@ public class Task {
     @JsonProperty
     private String description;
 
-
     @NotNull
     @JsonProperty
     private String completeByDate;
 
-
     @NotNull
     @JsonProperty
     private boolean isDone;
-
 }
