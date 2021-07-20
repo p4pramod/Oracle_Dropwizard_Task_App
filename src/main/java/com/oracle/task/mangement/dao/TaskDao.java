@@ -14,11 +14,11 @@ public interface TaskDao {
             " ref VARCHAR(255) NOT NULL, " +
             " description VARCHAR(255) NOT NULL, " +
             " completeByDate VARCHAR(12) NOT NULL, " +
-            " isDone Boolean NOT NULL, " +
+            " done Boolean NOT NULL, " +
             " primary key(id))")
     void createTaskTable();
 
-    @SqlUpdate("INSERT INTO Task (ref, description, completeByDate, isDone) " +
+    @SqlUpdate("INSERT INTO Task (ref, description, completeByDate, done) " +
             "VALUES(:ref, :description, :completeByDate, false)")
     @GetGeneratedKeys
     int addTask(@BindBean Task task);
@@ -26,7 +26,7 @@ public interface TaskDao {
     @SqlQuery("SELECT * FROM Task")
     List<Task> getAll();
 
-    @SqlUpdate("Update Task Set isDone = true WHERE id = :id")
+    @SqlUpdate("Update Task Set done = true WHERE id = :id")
     int completeTask(@Bind("id") int id);
 
 }

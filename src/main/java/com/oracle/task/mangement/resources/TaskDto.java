@@ -33,5 +33,6 @@ public class TaskDto {
 
     @NotNull
     @JsonProperty
-    private boolean isDone;
+    private boolean done;
+
 }

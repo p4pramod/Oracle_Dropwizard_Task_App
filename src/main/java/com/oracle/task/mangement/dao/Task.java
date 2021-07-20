@@ -30,9 +30,8 @@ public class Task {
     @JsonProperty
     private String completeByDate;
 
-
     @NotNull
     @JsonProperty
-    private boolean isDone;
+    private boolean done;
 
 }
