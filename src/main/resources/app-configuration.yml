@@ -9,7 +9,7 @@ database:
   # the password
   password: sa
   # the JDBC URL
-  url: jdbc:h2:./target/task
+  url: jdbc:h2:mem:task
 
 
 # use the simple server factory if you only want to run on a single port
